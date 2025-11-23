@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Administrador - Asistencia QR 1Bot</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="admin-body">
+
+  <!-- 🔹 Sidebar de navegación -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/logo-1bot.png" alt="1Bot" class="sidebar-logo">
+      <h2>Asistencia QR</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-btn" data-section="inicio">🏠 Inicio</button>
+      <button class="nav-btn" data-section="establecimientos">🏫 Establecimientos</button>
+      <button class="nav-btn" data-section="docentes">👩‍🏫 Docentes</button>
+      <button class="nav-btn" data-section="estudiantes">👨‍🎓 Estudiantes</button>
+      <button class="nav-btn" data-section="pdf">📄 Cargar PDF SIRE</button>
+      <button class="nav-btn" data-section="reportes">📊 Reportes</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="logoutBtn" class="logout-btn">🔓 Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- 🔸 Contenido principal -->
+  <main class="main-content">
+    <header class="main-header">
+      <div>
+        <h1 id="pageTitle">Panel de Administración</h1>
+        <p id="userInfo"></p>
+      </div>
+      <div class="inst-selector">
+        <label for="institucionSelect">🏫 Establecimiento:</label>
+        <select id="institucionSelect"></select>
+      </div>
+    </header>
+
+    <section id="contentArea" class="content-area">
+      <!-- Aquí se cargan dinámicamente los módulos CRUD -->
+    </section>
+  </main>
+
+  <!-- Librerías -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/crud.js"></script>
+  <script src="js/pdfParser.js"></script>
+  <script src="js/ocr.js"></script>
+  <script src="js/qrGenerator.js"></script>
+
+  <script>
+    // 🔐 Protección por rol
+    const rol = localStorage.getItem('rol');
+    const nombre = localStorage.getItem('nombre');
+    if (!rol || (rol !== 'admin' && rol !== 'superadmin')) {
+      alert("Acceso denegado. Solo administradores pueden entrar.");
+      window.location.href = 'index.html';
+    }
+
+    document.getElementById('userInfo').textContent = `👋 Hola, ${nombre} (${rol})`;
+
+    // 🔄 Cargar lista de instituciones
+    async function cargarInstituciones() {
+      const select = document.getElementById('institucionSelect');
+      const { data, error } = await supabase.from('establecimientos').select('*').order('nombre');
+      if (error) {
+        alert("Error al cargar instituciones");
+        return;
+      }
+      select.innerHTML = '';
+      data.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.id;
+        opt.textContent = e.nombre;
+        select.appendChild(opt);
+      });
+    }
+
+    // 📁 Navegación dinámica
+    const botones = document.querySelectorAll('.nav-btn');
+    botones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('pageTitle').textContent = btn.textContent;
+        const seccion = btn.dataset.section;
+        const area = document.getElementById('contentArea');
+        area.innerHTML = '<p class="loading">Cargando...</p>';
+
+        if (seccion === 'inicio') cargarDashboard();
+        if (seccion === 'establecimientos') cargarModuloEstablecimientos();
+        if (seccion === 'docentes') cargarModuloDocentes();
+        if (seccion === 'estudiantes') cargarModuloEstudiantes();
+        if (seccion === 'pdf') cargarModuloPDF();
+        if (seccion === 'reportes') cargarModuloReportes();
+      });
+    });
+
+    // 🚪 Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      localStorage.clear();
+      window.location.href = 'index.html';
+    });
+
+    // 🏁 Inicio automático
+    async function initPanel() {
+      await cargarInstituciones();
+      cargarDashboard();
+    }
+
+    initPanel();
+
+    // 📊 Dashboard simple de bienvenida
+    function cargarDashboard() {
+      const area = document.getElementById('contentArea');
+      area.innerHTML = `
+        <div class="card">
+          <h2>Bienvenido al panel administrativo</h2>
+          <p>Desde aquí puedes gestionar establecimientos, docentes, estudiantes y cargar los PDFs del SIRE para generar QRs.</p>
+          <p>Selecciona una opción del menú lateral para continuar.</p>
+        </div>
+      `;
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then(() => {
+      console.log("PWA lista 🔥");
+    });
+  }
+</script>
+
+</body>
+</html>

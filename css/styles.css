@@ -1,0 +1,269 @@
+/* =========================================================
+   🎨 1Bot STEEAM Theme - CSS principal
+   ========================================================= */
+
+/* Variables de color (paleta educativa) */
+:root {
+  --azul-steam: #007bff;
+  --naranja-steam: #ff8c42;
+  --verde-steam: #28a745;
+  --violeta-steam: #8a4fff;
+  --gris-claro: #f4f7fa;
+  --gris-oscuro: #2f3640;
+  --blanco: #ffffff;
+  --sombra-card: rgba(0,0,0,0.1);
+  --fuente-principal: 'Poppins', sans-serif;
+}
+
+/* Estilos globales */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--gris-claro);
+  margin: 0;
+  color: var(--gris-oscuro);
+}
+
+/* =========================================================
+   🔐 LOGIN PAGE
+   ========================================================= */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--azul-steam), var(--violeta-steam));
+  color: white;
+}
+
+.login-container {
+  background: var(--blanco);
+  color: var(--gris-oscuro);
+  padding: 2em;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px var(--sombra-card);
+  text-align: center;
+  width: 90%;
+  max-width: 380px;
+}
+
+.login-container input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: 2px solid var(--gris-claro);
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+.login-container button {
+  width: 100%;
+  background: var(--azul-steam);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-container button:hover {
+  background: var(--violeta-steam);
+}
+
+.logo {
+  width: 90px;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   🧭 SIDEBAR Y LAYOUT ADMIN
+   ========================================================= */
+.admin-body {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--azul-steam);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1em;
+  box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+}
+
+.sidebar-header {
+  text-align: center;
+}
+
+.sidebar-logo {
+  width: 70px;
+  border-radius: 10px;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: var(--blanco);
+  color: var(--azul-steam);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--naranja-steam);
+  color: white;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  text-align: center;
+}
+
+.logout-btn {
+  background: var(--violeta-steam);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* =========================================================
+   📋 MAIN CONTENT
+   ========================================================= */
+.main-content {
+  margin-left: 260px;
+  padding: 2em;
+  width: calc(100% - 260px);
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+.inst-selector select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--azul-steam);
+  font-size: 1em;
+}
+
+.content-area {
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 5px 10px var(--sombra-card);
+  padding: 2em;
+  min-height: 65vh;
+}
+
+/* =========================================================
+   🧾 CARDS, TABLAS Y BOTONES CRUD
+   ========================================================= */
+.card {
+  background: var(--blanco);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px var(--sombra-card);
+  margin-bottom: 1em;
+}
+
+.card h2 {
+  color: var(--azul-steam);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--gris-claro);
+}
+
+th {
+  background-color: var(--azul-steam);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+button.crud-btn {
+  background: var(--verde-steam);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button.crud-btn.delete {
+  background: #dc3545;
+}
+
+button.crud-btn:hover {
+  opacity: 0.9;
+}
+
+/* =========================================================
+   🧩 UTILIDADES Y RESPONSIVIDAD
+   ========================================================= */
+.loading {
+  text-align: center;
+  color: var(--violeta-steam);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .nav-btn {
+    flex: 1;
+    font-size: 0.9em;
+  }
+}
