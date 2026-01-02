@@ -1,10 +1,11 @@
 /* =========================================================
    ⚙️ Supabase Configuración y Autenticación
+   https://eahfrfntuqdunvmaohcz.supabase.co
    ========================================================= */
-
+https://ufxpbrsqzqfvqdohxlgg.supabase.co
 // 🚀 Inserta tus credenciales aquí
-const SUPABASE_URL = "https://eahfrfntuqdunvmaohcz.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhaGZyZm50dXFkdW52bWFvaGN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NzkyNzAsImV4cCI6MjA3OTI1NTI3MH0.wcucS8f-WgojxeF5psRkCCoXVMr461PgFEF3E7Iq0_Q";
+const SUPABASE_URL = "https://ufxpbrsqzqfvqdohxlgg.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmeHBicnNxenFmdnFkb2h4bGdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0MzU2ODgsImV4cCI6MjA3OTAxMTY4OH0.-6Vz94gp5jT2HbrrhdMrD40-YAzjclDk89RBUxRnS7g";
 
 // Crear cliente Supabase
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -83,3 +84,4 @@ async function cerrarSesion() {
     localStorage.setItem('userId', user.id);
   }
 })();
+
